@@ -5,7 +5,7 @@
         device = lib.mkDefault "/dev/vda";
         type = "disk";
         content = {
-          type = "msdos";
+          type = "gpt";
           partitions = {
             boot = {
               size = "500M";
