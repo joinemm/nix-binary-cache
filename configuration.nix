@@ -5,25 +5,15 @@
   ...
 }: {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-    (modulesPath + "/profiles/qemu-guest.nix")
-    ./disko.nix
+    ./disk-config.nix
+    ./hardware-configuration.nix
   ];
 
-  system.stateVersion = "23.05";
-
-  boot.initrd.availableKernelModules = ["ata_piix" "uhci_hcd" "virtio_pci" "sr_mod" "virtio_blk"];
-  boot.kernelModules = ["kvm_intel"];
-  boot.initrd.kernelModules = [];
-  boot.kernelParams = [
-    "console=tty1"
-    "console=ttyS0,115200"
-  ];
+  system.stateVersion = "23.11";
 
   boot.loader.grub = {
     enable = true;
-    efiSupport = true;
-    efiInstallAsRemovable = true;
+    device = "/dev/vda";
   };
 
   networking = {
@@ -67,7 +57,7 @@
 
   environment.systemPackages = with pkgs; [
     curl
-    neovim
+    vim
     wget
     git
   ];
