@@ -1,14 +1,17 @@
 {
+  modulesPath,
   config,
   pkgs,
   ...
 }:
 {
   imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    (modulesPath + "/profiles/qemu-guest.nix")
     ./disko.nix
   ];
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "23.05";
 
   boot.loader.grub = {
     enable = true;
@@ -18,20 +21,21 @@
 
   networking = {
     hostName = "binarycache";
+  #  useNetworkd = true;
     nameservers = ["1.1.1.1" "8.8.8.8"];
   };
 
-  systemd.network = {
-    enable = true;
-  };
+  #systemd.network = {
+  #  enable = true;
+  #};
 
-  time.timeZone = "UTC";
-  i18n.defaultLocale = "en_US.UTF-8";
+  #time.timeZone = "UTC";
+  #i18n.defaultLocale = "en_US.UTF-8";
 
-  console = {
-    font = "ter-v32n";
-    packages = with pkgs; [terminus_font];
-  };
+  #console = {
+  #  font = "ter-v32n";
+  #  packages = with pkgs; [terminus_font];
+  #};
 
   users = {
     users = {
